@@ -19,7 +19,8 @@ export default {
   methods: {
     sendMessage() {
       if (this.message.trim() !== "") {
-        this.$emit("message", this.message);
+        console.log("message", this.message);
+        this.$store.commit("addMessage", this.message);
         this.message = "";
       }
     },

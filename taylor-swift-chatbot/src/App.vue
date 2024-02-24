@@ -4,12 +4,14 @@
 
 <script>
 import ChatContainer from "./components/ChatContainer.vue";
+import store from "./store/store.js";
 
 export default {
   name: "App",
   components: {
     ChatContainer,
   },
+  store,
 };
 </script>
 
