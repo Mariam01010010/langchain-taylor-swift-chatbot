@@ -3,26 +3,37 @@
     <input
       type="text"
       v-model="message"
-      @keyup.enter="sendMessage"
+      @keyup.enter="
+        sendMessage;
+        getAnswer(message);
+      "
       placeholder="Type your message..."
     />
   </div>
 </template>
 
 <script>
+import { invokeRetrievalChain } from "../helpers/tsChatbotIntegrated";
+
 export default {
   data() {
     return {
       message: "",
+      openai_api_key: process.env.VUE_APP_OPENAI_API_KEY,
     };
   },
   methods: {
+    // invokeRetrievalChain,
     sendMessage() {
       if (this.message.trim() !== "") {
         console.log("message", this.message);
         this.$store.commit("addMessage", this.message);
         this.message = "";
       }
+    },
+    async submitUserInput(input) {
+      const result = await invokeRetrievalChain(input);
+      console.log("result.answer", result.answer);
     },
   },
 };
