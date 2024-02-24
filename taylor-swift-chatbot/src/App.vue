@@ -5,11 +5,17 @@
 <script>
 import ChatContainer from "./components/ChatContainer.vue";
 import store from "./store/store.js";
+import { articles } from "@/data/data";
 
 export default {
   name: "App",
   components: {
     ChatContainer,
+  },
+  data() {
+    return {
+      articles: articles,
+    };
   },
   store,
 };
