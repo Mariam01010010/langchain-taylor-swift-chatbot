@@ -21,19 +21,9 @@ function configDotenv() {
 }
 configDotenv();
 
-// const openaiApiKey = process.env.VUE_APP_OPENAI_API_KEY;
-
-// const chatModel = new ChatOpenAI({});
-// const openaiApiKey = process.env.VUE_APP_OPENAI_API_KEY;
-
 const chatModel = new ChatOpenAI({
   openAIApiKey: process.env.VUE_APP_OPENAI_API_KEY,
 });
-// openAIApiKey: process.env.VUE_APP_OPENAI_API_KEY,
-
-// const chatModel = new ChatOpenAI({
-//   openAIApiKey: process.env.OPENAI_API_KEY,
-// });
 
 const loader = new CheerioWebBaseLoader(...articlesArray);
 const docs = await loader.load();
@@ -106,37 +96,8 @@ const historyAwareRetrieverChain = await createHistoryAwareRetriever({
   rephrasePrompt: historyAwarePrompt,
 });
 
-// console.log("historyAwareRetrieverChain", historyAwareRetrieverChain);
-
-// /// UNCOMMENT BELOW
-// // Conversational Retrieval Chain: Part 2
-// /*  Testing out this "history aware retriever"
-//     out by creating a situation where the
-//     user is asking a follow up question.
-//     The LLM generates a new query,
-//     combining the chat history with the follow up question
-// */
 import { HumanMessage, AIMessage } from "@langchain/core/messages";
 
-// const chatHistory = [
-//   new HumanMessage("Who is Taylor Swift?"),
-//   new AIMessage(
-//     "Taylor Swift is an American singer-songwriter who is one of the world's best-selling musicians, known for her versatile artistry, songwriting, and entrepreneurship. She has achieved widespread fame and success in the music industry and popular culture."
-//   ),
-// ];
-
-// const historyAwareResponse = await historyAwareRetrieverChain.invoke({
-//   chat_history: chatHistory,
-//   input: "What is her best album?",
-// });
-
-// console.log("historyAwareResponse", historyAwareResponse);
-
-// Conversational Retrieval Chain: Part 3
-/*  with this new retriever, we can create a new chain
-    to continue the conversation with these retrieved
-    documents in mind
-*/
 const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
   [
     "system",
@@ -160,14 +121,42 @@ const conversationalRetrievalChain = await createRetrievalChain({
   combineDocsChain: historyAwareCombineDocsChain,
 });
 
-const result2 = await conversationalRetrievalChain.invoke({
-  chat_history: [
-    new HumanMessage("Who is Taylor Swift?"),
-    new AIMessage(
-      "Taylor Swift is an American singer-songwriter who is one of the world's best-selling musicians, known for her versatile artistry, songwriting, and entrepreneurship. She has achieved widespread fame and success in the music industry and popular culture."
-    ),
-  ],
-  input: "How many songs are on her album Red?",
-});
+// const humanMessages = ["test"];
+// AIMessage;
 
-console.log(result2.answer);
+// export async function invokeConversationalRetrievalChain(
+//   newInput,
+//   previousHumanMessages,
+//   previousAIMessages
+// ) {
+
+export async function invokeConversationalRetrievalChain(newInput) {
+  console.log("input", newInput);
+  const result2 = await conversationalRetrievalChain.invoke({
+    chat_history: [
+      new HumanMessage("Who is Taylor Swift?"),
+      new AIMessage(
+        "Taylor Swift is an American singer-songwriter who is one of the world's best-selling musicians, known for her versatile artistry, songwriting, and entrepreneurship. She has achieved widespread fame and success in the music industry and popular culture."
+      ),
+    ],
+    input: newInput,
+  });
+  return result2;
+}
+
+const conversationalResult = await invokeConversationalRetrievalChain(
+  "How many songs are on her album Red?"
+);
+console.log(conversationalResult.answer);
+
+// const result2 = await conversationalRetrievalChain.invoke({
+//   chat_history: [
+//     new HumanMessage("Who is Taylor Swift?"),
+//     new AIMessage(
+//       "Taylor Swift is an American singer-songwriter who is one of the world's best-selling musicians, known for her versatile artistry, songwriting, and entrepreneurship. She has achieved widespread fame and success in the music industry and popular culture."
+//     ),
+//   ],
+//   input: "How many songs are on her album Red?",
+// });
+
+// console.log(result2.answer);

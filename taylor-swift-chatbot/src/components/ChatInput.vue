@@ -3,17 +3,14 @@
     <input
       type="text"
       v-model="message"
-      @keyup.enter="
-        sendMessage;
-        getAnswer(message);
-      "
+      @keyup.enter="sendMessage"
       placeholder="Type your message..."
     />
   </div>
 </template>
 
 <script>
-import { invokeRetrievalChain } from "../helpers/tsChatbotIntegrated";
+// import { invokeRetrievalChain } from "../helpers/tsChatbotIntegrated";
 
 export default {
   data() {
@@ -28,13 +25,14 @@ export default {
       if (this.message.trim() !== "") {
         console.log("message", this.message);
         this.$store.commit("addMessage", this.message);
+        this.$store.commit("receiveBotResponse", "You are right");
         this.message = "";
       }
     },
-    async submitUserInput(input) {
-      const result = await invokeRetrievalChain(input);
-      console.log("result.answer", result.answer);
-    },
+    // async submitUserInput(input) {
+    //   const result = await invokeRetrievalChain(input);
+    //   console.log("result.answer", result.answer);
+    // },
   },
 };
 </script>

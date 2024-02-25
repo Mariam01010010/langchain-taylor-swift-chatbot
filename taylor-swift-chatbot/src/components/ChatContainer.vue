@@ -2,7 +2,12 @@
   <div class="chat-container">
     <ChatHeader />
     <ChatMessages :messages="messages" />
-    <ChatInput @message="addMessage" />
+    <ChatInput
+      @message="
+        addMessage;
+        receiveBotResponse;
+      "
+    />
   </div>
 </template>
 
@@ -19,13 +24,17 @@ export default {
   },
   data() {
     return {
-      messages: [],
+      messages: this.$store.state.messages,
     };
   },
   methods: {
     addMessage(message) {
       this.messages.push({ text: message, fromUser: true });
+      //   this.messageResponse("You are right");
       // implement logic to handle bot's response
+    },
+    receiveBotResponse(text) {
+      this.messages.push({ text: text, fromUser: false });
     },
   },
 };

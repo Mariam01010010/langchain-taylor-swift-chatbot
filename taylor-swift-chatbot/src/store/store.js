@@ -11,6 +11,9 @@ const store = createStore({
       state.messages.push({ text: message, fromUser: true });
       // You can add logic here to handle bot's response
     },
+    receiveBotResponse(state, botResponse) {
+      state.messages.push({ text: botResponse, fromUser: false });
+    },
   },
 });
 
