@@ -12,6 +12,7 @@ import { articles } from "./data/data.js";
 
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 
 // initialising API key
 const articlesArray = Object.values(articles);
@@ -80,8 +81,6 @@ const historyAwareRetrieverChain = await createHistoryAwareRetriever({
   rephrasePrompt: historyAwarePrompt,
 });
 
-import { HumanMessage, AIMessage } from "@langchain/core/messages";
-
 const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
   [
     "system",
@@ -115,7 +114,6 @@ export async function invokeConversationalRetrievalChain(
   messageContext,
   newQuestion
 ) {
-  console.log({ messageContext, newQuestion });
   const conversationalResult = await conversationalRetrievalChain.invoke({
     chat_history: [new HumanMessage(question), new AIMessage(messageContext)],
     input: newQuestion,
@@ -123,27 +121,40 @@ export async function invokeConversationalRetrievalChain(
   return conversationalResult;
 }
 
+async function messageTaylorBot(question, followUpQuestion) {
+  // asking and logging the question
+  const result = await invokeRetrievalChain(question);
+  console.log(result.answer);
+
+  // asking a follow up question
+  if (followUpQuestion) {
+    const conversationalResult = await invokeConversationalRetrievalChain(
+      question,
+      result.answer,
+      followUpQuestion
+    );
+
+    console.log(conversationalResult.answer);
+  }
+}
+
+// const question = "I am lonely, recommend me a Taylor Swift album";
+// const followUpQuestion = "Which is the best selling song from this album?";
+
+// console.log(await messageTaylorBot(question));
+
 // questions
+// const question = "Who is Taylor Swift?";
+// const question = "Which is Taylor Swift's best album?";
+
 // const mood = "angry";
 // const question = `I am in a ${mood} mood. Which Taylor Swift album should I listen to?`;
-// const question = "Who is Taylor Swift?";
-const question = "Who is Harry Styles?";
-// const question = "Which is Taylor Swift's best album?";
-// const question = "How many songs has Taylor Swift re-recorded in total?";
-
-const result = await invokeRetrievalChain(question);
-console.log(result.answer);
 
 // asking a follow up question
-// const newQuestion = "How many songs are on her album Red?";
-// const newQuestion = "Tell me about her love life?";
-// const newQuestion = "When did it come out?";
-
-const conversationalResult = await invokeConversationalRetrievalChain(
-  question,
-  result.answer,
-  newQuestion
-);
-console.log(conversationalResult.answer);
+// const followUpQuestion = "How many songs are on her album Red?";
+// const followUpQuestion = "Tell me about her love life?";
+// const followUpQuestion = "When did it come out?";
 
 // const inputs = {};
+
+console.log(await messageTaylorBot(question, followUpQuestion));
