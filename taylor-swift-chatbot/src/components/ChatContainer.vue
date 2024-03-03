@@ -30,8 +30,6 @@ export default {
   methods: {
     addMessage(message) {
       this.messages.push({ text: message, fromUser: true });
-      //   this.messageResponse("You are right");
-      // implement logic to handle bot's response
     },
     receiveBotResponse(text) {
       this.messages.push({ text: text, fromUser: false });
