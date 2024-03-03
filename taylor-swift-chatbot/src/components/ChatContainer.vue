@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-container">
+  <div class="chat-container tortured">
     <ChatHeader />
     <ChatMessages :messages="messages" />
     <ChatInput

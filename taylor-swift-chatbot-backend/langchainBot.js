@@ -122,35 +122,18 @@ export async function invokeConversationalRetrievalChain(
   return conversationalResult;
 }
 
-async function messageTaylorBot(question, followUpQuestion) {
-  // asking and logging the question
-  const result = await invokeRetrievalChain(question);
-  console.log(result.answer);
-
-  // asking a follow up question
-  if (followUpQuestion) {
-    const conversationalResult = await invokeConversationalRetrievalChain(
-      question,
-      result.answer,
-      followUpQuestion
-    );
-
-    console.log(conversationalResult.answer);
-  }
-}
-
 // questions
-const question = "Who is Taylor Swift?";
+// const question = "Who is Taylor Swift?";
 // const question = "Which is Taylor Swift's best album?";
 
 // const mood = "angry";
 // const question = `I am in a ${mood} mood. Which Taylor Swift album should I listen to?`;
 
 // asking a follow up question
-const followUpQuestion = "How many songs are on her album Lover?";
+// const followUpQuestion = "How many songs are on her album Lover?";
 // const followUpQuestion = "Tell me about her love life?";
 // const followUpQuestion = "When did it come out?";
 
 // const inputs = {};
 
-console.log(await messageTaylorBot(question, followUpQuestion));
+// console.log(await messageTaylorBot(question, followUpQuestion));
