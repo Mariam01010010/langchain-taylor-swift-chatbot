@@ -5,7 +5,6 @@
 <script>
 import ChatContainer from "./components/ChatContainer.vue";
 import store from "./store/store.js";
-import { articles } from "@/data/data";
 
 export default {
   name: "App",
@@ -14,7 +13,7 @@ export default {
   },
   data() {
     return {
-      articles: articles,
+      // articles: articles,
     };
   },
   store,
@@ -28,6 +27,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 40px;
+  height: 100%;
+}
+
+body {
+  height: calc(100vh - 75px);
+  background-image: url("./assets/lover-album-cover.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

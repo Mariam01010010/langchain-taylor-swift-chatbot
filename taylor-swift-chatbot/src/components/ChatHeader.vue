@@ -1,6 +1,7 @@
 <template>
   <div class="chat-header">
-    <h2>Chat with Bot</h2>
+    <h2>Hi Swiftie</h2>
+    <h3>What would you like to know?</h3>
   </div>
 </template>
 
@@ -10,8 +11,7 @@ export default {};
 
 <style scoped>
 .chat-header {
-  background-color: #f2f2f2;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  color: white;
 }
 </style>

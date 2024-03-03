@@ -10,29 +10,39 @@
 </template>
 
 <script>
-// import { invokeRetrievalChain } from "../helpers/tsChatbotIntegrated";
-
 export default {
   data() {
     return {
       message: "",
-      openai_api_key: process.env.VUE_APP_OPENAI_API_KEY,
     };
   },
   methods: {
-    // invokeRetrievalChain,
-    sendMessage() {
+    async sendMessage() {
       if (this.message.trim() !== "") {
-        console.log("message", this.message);
-        this.$store.commit("addMessage", this.message);
-        this.$store.commit("receiveBotResponse", "You are right");
-        this.message = "";
+        try {
+          const response = await fetch("/message", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: this.message.trim() }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to send message to backend");
+          }
+
+          const responseData = await response.json();
+          console.log("Backend response:", responseData);
+
+          // Clear the input field
+          this.message = "";
+        } catch (error) {
+          console.error("Error sending message to backend:", error);
+          // Handle error if needed
+        }
       }
     },
-    // async submitUserInput(input) {
-    //   const result = await invokeRetrievalChain(input);
-    //   console.log("result.answer", result.answer);
-    // },
   },
 };
 </script>
@@ -40,12 +50,16 @@ export default {
 <style scoped>
 .chat-input {
   padding: 10px;
+  height: 80%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
 }
 
 .chat-input input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid white;
   border-radius: 5px;
 }
 </style>

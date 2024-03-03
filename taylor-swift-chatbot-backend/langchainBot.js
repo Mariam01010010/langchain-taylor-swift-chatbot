@@ -66,6 +66,7 @@ const retrievalChain = await createRetrievalChain({
   retriever,
 });
 
+// for RAG
 const historyAwarePrompt = ChatPromptTemplate.fromMessages([
   new MessagesPlaceholder("chat_history"),
   ["user", "{input}"],
@@ -137,11 +138,6 @@ async function messageTaylorBot(question, followUpQuestion) {
     console.log(conversationalResult.answer);
   }
 }
-
-// const question = "I am lonely, recommend me a Taylor Swift album";
-// const followUpQuestion = "Which is the best selling song from this album?";
-
-// console.log(await messageTaylorBot(question));
 
 // questions
 // const question = "Who is Taylor Swift?";

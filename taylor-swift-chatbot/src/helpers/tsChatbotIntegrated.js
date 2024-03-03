@@ -8,7 +8,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 import { MessagesPlaceholder } from "@langchain/core/prompts";
-import { articles } from "../data/data.js";
+import { articles } from "../../../taylor-swift-chatbot-backend/data/data.js";
 
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
