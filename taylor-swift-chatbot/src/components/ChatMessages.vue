@@ -30,7 +30,7 @@ export default {
 .user-message,
 .bot-message {
   width: fit-content;
-  max-width: 60%;
+  max-width: 50%;
   border-radius: 5px;
   font-weight: bold;
 }
