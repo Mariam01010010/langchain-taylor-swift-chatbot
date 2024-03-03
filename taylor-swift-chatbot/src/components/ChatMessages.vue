@@ -22,17 +22,29 @@ export default {
 <style scoped>
 .chat-messages {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.user-message,
+.bot-message {
+  width: fit-content;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .user-message {
-  background-color: #dcf8c6;
+  background-color: #c6e6f8;
   margin-bottom: 5px;
   padding: 5px;
+  align-self: flex-end;
 }
 
 .bot-message {
   background-color: #e6e6e6;
   margin-bottom: 5px;
   padding: 5px;
+  align-self: flex-start;
 }
 </style>

@@ -14,46 +14,35 @@ export default {
   data() {
     return {
       message: "",
+      // openai_api_key: process.env.VUE_APP_OPENAI_API_KEY,
     };
   },
   methods: {
-    async sendMessage() {
+    // invokeRetrievalChain,
+    sendMessage() {
       if (this.message.trim() !== "") {
-        try {
-          const response = await fetch("/message", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ message: this.message.trim() }),
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to send message to backend");
-          }
-
-          const responseData = await response.json();
-          console.log("Backend response:", responseData);
-
-          // Clear the input field
-          this.message = "";
-        } catch (error) {
-          console.error("Error sending message to backend:", error);
-          // Handle error if needed
-        }
+        console.log("message", this.message);
+        this.$store.commit("addMessage", this.message);
+        this.$store.commit("receiveBotResponse", "You are right");
+        this.message = "";
       }
     },
+    // async submitUserInput(input) {
+    //   const result = await invokeRetrievalChain(input);
+    //   console.log("result.answer", result.answer);
+    // },
   },
 };
 </script>
 
 <style scoped>
 .chat-input {
-  padding: 10px;
-  height: 80%;
+  padding: 20px 10px;
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
+  position: sticky;
+  bottom: 0;
 }
 
 .chat-input input {
