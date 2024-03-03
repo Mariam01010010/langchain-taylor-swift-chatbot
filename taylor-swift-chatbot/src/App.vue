@@ -32,7 +32,7 @@ export default {
 }
 
 body {
-  height: calc(100vh - 75px);
+  height: 100vh;
   background-image: url("./assets/lover-album-cover.png");
   background-repeat: no-repeat;
   background-size: cover;

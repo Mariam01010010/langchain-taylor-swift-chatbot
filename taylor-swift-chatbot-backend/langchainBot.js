@@ -140,14 +140,14 @@ async function messageTaylorBot(question, followUpQuestion) {
 }
 
 // questions
-// const question = "Who is Taylor Swift?";
+const question = "Who is Taylor Swift?";
 // const question = "Which is Taylor Swift's best album?";
 
 // const mood = "angry";
 // const question = `I am in a ${mood} mood. Which Taylor Swift album should I listen to?`;
 
 // asking a follow up question
-// const followUpQuestion = "How many songs are on her album Red?";
+const followUpQuestion = "How many songs are on her album Lover?";
 // const followUpQuestion = "Tell me about her love life?";
 // const followUpQuestion = "When did it come out?";
 

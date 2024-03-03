@@ -23,7 +23,14 @@ export default {
       if (this.message.trim() !== "") {
         console.log("message", this.message);
         this.$store.commit("addMessage", this.message);
-        this.$store.commit("receiveBotResponse", "You are right");
+        let botResponse = "You are right";
+        if (this.message === "Who is Taylor Swift?") {
+          botResponse =
+            "Taylor Swift is an American singer-songwriter who has had a major influence on the music industry, popular culture, and politics. She is one of the world's best-selling musicians, known for her successful albums and numerous accolades.";
+        } else if (this.message === "How many songs are on her album Lover?") {
+          botResponse = `There are a total of 18 songs on Taylor Swift's album "Lover." Some of the notable singles from this album include "Me!", "You Need to Calm Down", "Lover", "The Man", and "Cruel Summer."`;
+        }
+        this.$store.commit("receiveBotResponse", botResponse);
         this.message = "";
       }
     },
@@ -46,7 +53,7 @@ export default {
 }
 
 .chat-input input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid white;
   border-radius: 5px;
